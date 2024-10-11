@@ -1,7 +1,8 @@
 #include <sdk_ringbuffer.h>
 #include <assert.h>
 #include <sdk_types.h>
-
+#include <sdk_macros.h>
+#include <string.h>
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 
@@ -75,6 +76,7 @@ sdk_err_t sdk_ringbuffer_pop(sdk_ringbuffer_t* buf, char* value){
 }
 
 sdk_err_t sdk_ringbuffer_write(sdk_ringbuffer_t* buf, char* data, sdk_size_t data_size){
+#if 1
     sdk_err_t err = SDK_ERR_OK;
     for(sdk_size_t i=0; i<data_size; i++){
         err = sdk_ringbuffer_put(buf, *data++);
@@ -83,6 +85,19 @@ sdk_err_t sdk_ringbuffer_write(sdk_ringbuffer_t* buf, char* data, sdk_size_t dat
         }
     }
     return err;
+#else
+    assert(buf);
+    sdk_size_t size = SDK_MIN(data_size, buf->buffer_size - buf->write_idx + buf->read_idx);
+    /* first put the data starting from write_idx to buffer end */
+    sdk_size_t len = SDK_MIN(size, buf->buffer_size - (buf->write_idx & (buf->buffer_size - 1)));
+    memcpy(buf->buffer + (buf->write_idx & (buf->buffer_size -1)), data, len);
+    /* then put the rest (if any) at the begging of the buffer */
+    if((size - len) > 0){
+        memcpy(buf->buffer, (char*)data + len, size - len);
+    }
+    buf->write_idx += size;
+    return SDK_ERR_OK;
+#endif
 }
 
 sdk_err_t sdk_ringbuffer_read(sdk_ringbuffer_t *buf, char* data, sdk_size_t data_size){
