@@ -21,7 +21,7 @@ int main(int argc, char** argv){
     
     sdk_size_t endptr = 0;
     unsigned long ulVal = sdk_ringbuffer_strtoul(&buf, 53, &endptr, 10);
-    printf("sdk_ringbuffer_strtoul(&buf, 48, &endptr, 10) = %u, endptr = %d\n", ulVal, endptr);
+    printf("sdk_ringbuffer_strtoul(&buf, 53, &endptr, 10) = %u, endptr = %d\n", ulVal, endptr);
     
     int pos = sdk_ringbuffer_find(&buf, 0, "5678", 4);
     printf("sdk_ringbuffer_find(&buf, 0, \"5678\", 4) = %d\n", pos);

@@ -5,8 +5,12 @@
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 
+#ifndef ULONG_MAX
+#define	ULONG_MAX	((unsigned long)(~0L))		/* 0xFFFFFFFF */
+#endif
 
 static sdk_size_t sdk_ringbuffer__get_idx(sdk_ringbuffer_t * buf, sdk_size_t  idx){
+#if 0
     sdk_size_t read_idx = buf->read_idx ;
     for(sdk_size_t i=0; i<idx; i++){
         read_idx+=1;
@@ -15,6 +19,9 @@ static sdk_size_t sdk_ringbuffer__get_idx(sdk_ringbuffer_t * buf, sdk_size_t  id
         }
     }
     return read_idx;
+#else
+    return ( buf->read_idx + idx ) % buf->buffer_size;
+#endif
 }
 
 /* -------------------------------------------------------------------------------------------------------------- */
@@ -177,10 +184,6 @@ sdk_err_t sdk_ringbuffer_advance(sdk_ringbuffer_t * buf, sdk_size_t idx){
     return SDK_ERR_OK;
 }
 
-
-#ifndef ULONG_MAX
-#define	ULONG_MAX	((unsigned long)(~0L))		/* 0xFFFFFFFF */
-#endif
 
 unsigned long sdk_ringbuffer_strtoul(sdk_ringbuffer_t* buf, sdk_size_t idx, sdk_size_t* endptr, register int base){
     assert(buf);
