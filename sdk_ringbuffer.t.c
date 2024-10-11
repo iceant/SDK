@@ -33,10 +33,10 @@ int main(int argc, char** argv){
     sdk_ringbuffer_put(&buf, 0x34);
     sdk_ringbuffer_put(&buf, 0x56);
     sdk_ringbuffer_put(&buf, 0x78);
-    for(sdk_size_t i=0; i< SDK_ARRAY_SIZE(block); i++){
-        sdk_ringbuffer_peek(&buf, i, &c);
-        printf("[%d] %c\n", i, c);
-    }
+//    for(sdk_size_t i=0; i< SDK_ARRAY_SIZE(block); i++){
+//        sdk_ringbuffer_peek(&buf, i, &c);
+//        printf("[%d] %c\n", i, c);
+//    }
     
     {
         uint16_t value = 0;

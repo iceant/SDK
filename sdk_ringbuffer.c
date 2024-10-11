@@ -2,6 +2,24 @@
 #include <assert.h>
 #include <sdk_types.h>
 
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
+
+static sdk_size_t sdk_ringbuffer__get_idx(sdk_ringbuffer_t * buf, sdk_size_t  idx){
+    sdk_size_t read_idx = buf->read_idx ;
+    for(sdk_size_t i=0; i<idx; i++){
+        read_idx+=1;
+        if(read_idx >= buf->buffer_size){
+            read_idx = 0;
+        }
+    }
+    return read_idx;
+}
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
 sdk_err_t sdk_ringbuffer_init(sdk_ringbuffer_t* buf, char* block, sdk_size_t block_size){
     assert(buf);
     assert(block);
@@ -126,15 +144,7 @@ sdk_err_t sdk_ringbuffer_peek(sdk_ringbuffer_t* buf, sdk_size_t idx, char* value
     }
     
     if(value){
-        sdk_size_t read_idx = buf->read_idx ;
-        for(sdk_size_t i=0; i<idx; i++){
-            read_idx+=1;
-            if(read_idx >= buf->buffer_size){
-                read_idx = 0;
-            }
-        }
-        
-        *value = buf->buffer[read_idx];
+        *value = buf->buffer[sdk_ringbuffer__get_idx(buf, idx)];
     }
     
     return SDK_ERR_OK;
@@ -150,14 +160,7 @@ sdk_bool_t sdk_ringbuffer_is(sdk_ringbuffer_t* buf, sdk_size_t idx, char value){
         return SDK_ERR_INVAL;
     }
     
-    sdk_size_t read_idx = buf->read_idx ;
-    for(sdk_size_t i=0; i<idx; i++){
-        read_idx+=1;
-        if(read_idx >= buf->buffer_size){
-            read_idx = 0;
-        }
-    }
-    return (value==buf->buffer[read_idx])?SDK_TRUE:SDK_FALSE;
+    return (value==buf->buffer[sdk_ringbuffer__get_idx(buf, idx)])?SDK_TRUE:SDK_FALSE;
 }
 
 /* move read_idx advance */
@@ -170,14 +173,7 @@ sdk_err_t sdk_ringbuffer_advance(sdk_ringbuffer_t * buf, sdk_size_t idx){
     if(idx >= used){
         return SDK_ERR_INVAL;
     }
-    sdk_size_t read_idx = buf->read_idx ;
-    for(sdk_size_t i=0; i<idx; i++){
-        read_idx+=1;
-        if(read_idx >= buf->buffer_size){
-            read_idx = 0;
-        }
-    }
-    buf->read_idx = read_idx;
+    buf->read_idx = sdk_ringbuffer__get_idx(buf, idx);
     return SDK_ERR_OK;
 }
 
@@ -273,17 +269,6 @@ int sdk_ringbuffer_find(sdk_ringbuffer_t* buf, sdk_size_t idx, char* data, sdk_s
         }
     }
     return SDK_RINGBUFFER_FIND_INVALID;
-}
-
-static sdk_size_t sdk_ringbuffer__get_idx(sdk_ringbuffer_t * buf, sdk_size_t  idx){
-    sdk_size_t read_idx = buf->read_idx ;
-    for(sdk_size_t i=0; i<idx; i++){
-        read_idx+=1;
-        if(read_idx >= buf->buffer_size){
-            read_idx = 0;
-        }
-    }
-    return read_idx;
 }
 
 sdk_err_t sdk_ringbuffer_uint16_le(sdk_ringbuffer_t* buf, sdk_size_t idx, uint16_t* value){
