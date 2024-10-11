@@ -1,12 +1,26 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.5)
 project(SDK C)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_C_STANDARD 11)
+
+##############################################################################################################
+## OPTIONS
+
+option(SDK_USE_TLSF "Use tlsf Allocator" ON)
+
+##############################################################################################################
+## TARGET
 
 add_library(${PROJECT_NAME} "")
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC SDK_SIZEOF_VOID_P=${CMAKE_SIZEOF_VOID_P})
 
+if (SDK_USE_TLSF)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC SDK_USE_TLSF=1)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Pub/TLSF-2.4.6 ${CMAKE_CURRENT_BINARY_DIR}/TLSF)
+    target_link_libraries(${PROJECT_NAME} PUBLIC TLSF)
+endif ()
 
 file(GLOB SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 list(FILTER SOURCES EXCLUDE REGEX \\.t\\.c)

@@ -13,6 +13,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////
 
+void sdk_memory_init(void);
+
+void sdk_memory_destroy(void);
+
 void* sdk_memory_alloc(sdk_size_t nBytes);
 
 void* sdk_memory_calloc(sdk_size_t nCount, sdk_size_t nBytes);
@@ -20,6 +24,7 @@ void* sdk_memory_calloc(sdk_size_t nCount, sdk_size_t nBytes);
 void* sdk_memory_realloc(void* memory, sdk_size_t nBytes);
 
 void sdk_memory_free(void* memory);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////

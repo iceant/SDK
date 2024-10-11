@@ -9,5 +9,16 @@
 #define SDK_ALIGN_SIZE (SDK_SIZEOF_VOID_P*2)
 #endif
 
+#ifndef SDK_USE_TLSF
+    #define SDK_USE_TLSF 1
+#endif
+
+#ifndef SDK_TLSF_MEMORY_POOL_SIZE
+    #define SDK_TLSF_MEMORY_POOL_SIZE (1024*1024*1024)
+#endif
+
+#ifndef SDK_PRINTF_BUFFER_SIZE
+    #define SDK_PRINTF_BUFFER_SIZE 1024
+#endif
 
 #endif /*INCLUDED_SDK_DEFINITIONS_H*/

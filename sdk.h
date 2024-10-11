@@ -33,4 +33,11 @@
 #include <sdk_vector.h>
 #endif // INCLUDED_SDK_VECTOR_H
 
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
+void sdk_init(void);
+
+void sdk_destroy(void);
+
 #endif /*INCLUDED_SDK_H*/
