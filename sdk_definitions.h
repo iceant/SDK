@@ -21,4 +21,8 @@
     #define SDK_PRINTF_BUFFER_SIZE 1024
 #endif
 
+#ifndef SDK_MEMORY_DEBUG
+    #define SDK_MEMORY_DEBUG
+#endif
+
 #endif /*INCLUDED_SDK_DEFINITIONS_H*/
