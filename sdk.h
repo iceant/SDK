@@ -33,6 +33,30 @@
 #include <sdk_vector.h>
 #endif // INCLUDED_SDK_VECTOR_H
 
+#ifndef INCLUDED_SDK_FMT_H
+#include <sdk_fmt.h>
+#endif /*INCLUDED_SDK_FMT_H*/
+
+#ifndef INCLUDED_SDK_STR_H
+#include <sdk_str.h>
+#endif /*INCLUDED_SDK_STR_H*/
+
+#ifndef INCLUDED_SDK_XP_H
+#include <sdk_xp.h>
+#endif /*INCLUDED_SDK_XP_H*/
+
+#ifndef INCLUDED_SDK_MP_H
+#include <sdk_mp.h>
+#endif /*INCLUDED_SDK_MP_H*/
+
+#ifndef INCLUDED_SDK_BITSET_H
+#include <sdk_bitset.h>
+#endif /*INCLUDED_SDK_BITSET_H*/
+
+#ifndef INCLUDED_SDK_PRINTF_H
+#include <sdk_printf.h>
+#endif /*INCLUDED_SDK_PRINTF_H*/
+
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 

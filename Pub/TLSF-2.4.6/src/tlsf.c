@@ -465,7 +465,7 @@ size_t init_memory_pool(size_t mem_pool_size, void *mem_pool)
         return -1;
     }
 
-    if (((unsigned long) mem_pool & PTR_MASK)) {
+    if (((size_t) mem_pool & PTR_MASK)) {
         ERROR_MSG("init_memory_pool (): mem_pool must be aligned to a word\n");
         return -1;
     }
@@ -525,7 +525,7 @@ size_t add_new_area(void *area, size_t area_size, void *mem_pool)
         lb1 = ptr->end;
 
         /* Merging the new area with the next physically contigous one */
-        if ((unsigned long) ib1 == (unsigned long) lb0 + BHDR_OVERHEAD) {
+        if ((size_t) ib1 == (size_t) lb0 + BHDR_OVERHEAD) {
             if (tlsf->area_head == ptr) {
                 tlsf->area_head = ptr->next;
                 ptr = ptr->next;
@@ -546,7 +546,7 @@ size_t add_new_area(void *area, size_t area_size, void *mem_pool)
 
         /* Merging the new area with the previous physically contigous
            one */
-        if ((unsigned long) lb1->ptr.buffer == (unsigned long) ib0) {
+        if ((size_t) lb1->ptr.buffer == (size_t) ib0) {
             if (tlsf->area_head == ptr) {
                 tlsf->area_head = ptr->next;
                 ptr = ptr->next;
@@ -914,8 +914,8 @@ void print_all_blocks(tlsf_t * tlsf);
 void dump_memory_region(unsigned char *mem_ptr, unsigned int size)
 {
 
-    unsigned long begin = (unsigned long) mem_ptr;
-    unsigned long end = (unsigned long) mem_ptr + size;
+    size_t begin = (size_t) mem_ptr;
+    size_t end = (size_t) mem_ptr + size;
     int column = 0;
 
     begin >>= 2;
@@ -956,7 +956,7 @@ void print_block(bhdr_t * b)
         return;
     PRINT_MSG(">> [%p] (", b);
     if ((b->size & BLOCK_SIZE))
-        PRINT_MSG("%lu bytes, ", (unsigned long) (b->size & BLOCK_SIZE));
+        PRINT_MSG("%lu bytes, ", (size_t) (b->size & BLOCK_SIZE));
     else
         PRINT_MSG("sentinel, ");
     if ((b->size & BLOCK_STATE) == FREE_BLOCK)
