@@ -57,6 +57,38 @@
 #include <sdk_printf.h>
 #endif /*INCLUDED_SDK_PRINTF_H*/
 
+#ifndef INCLUDED_SDK_NET_H
+#include <sdk_net.h>
+#endif /*INCLUDED_SDK_NET_H*/
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
+#ifndef INCLUDED_MD5_H
+#include <md5.h>
+#endif /*INCLUDED_MD5_H*/
+
+#ifndef INCLUDED_BASE64_H
+#include <base64.h>
+#endif /*INCLUDED_BASE64_H*/
+
+#ifndef INCLUDED_SHA1_H
+#include <sha1.h>
+#endif /*INCLUDED_SHA1_H*/
+
+#ifndef INCLUDED_SHA256_H
+#include <sha256.h>
+#endif /*INCLUDED_SHA256_H*/
+
+#ifndef INCLUDED_AES_H
+#include <aes.h>
+#endif /*INCLUDED_AES_H*/
+
+#ifndef INCLUDED_BLOWFISH_H
+#include <blowfish.h>
+#endif /*INCLUDED_BLOWFISH_H*/
+
+
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 

@@ -39,6 +39,32 @@ endforeach ()
 target_sources(${PROJECT_NAME} PRIVATE ${COMPILER_SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${COMPILER_SOURCE_DIR})
 
+##############################################################################################################
+## Crypto
+set(CRYPTO_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Crypto)
+file(GLOB CRYPTO_SOURCES ${CRYPTO_DIR}/*.c)
+list(FILTER CRYPTO_SOURCES EXCLUDE REGEX \\.t\\.c)
+foreach (item IN LISTS CRYPTO_SOURCES)
+    message(STATUS "[${PROJECT_NAME}] CRYPTO_SOURCES: ${item}")
+endforeach ()
+target_sources(${PROJECT_NAME} PRIVATE ${CRYPTO_SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CRYPTO_DIR})
+
+##############################################################################################################
+## Network
+
+file(GLOB NETWORK_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Network/*.c)
+list(FILTER NETWORK_SOURCES EXCLUDE REGEX \\.t\\.c)
+foreach (item IN LISTS NETWORK_SOURCES)
+    message(STATUS "[${PROJECT_NAME}] NETWORK_SOURCES: ${item}")
+endforeach ()
+target_sources(${PROJECT_NAME} PRIVATE ${NETWORK_SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Network)
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
+endif ()
+
 
 ##############################################################################################################
 ## TEST
@@ -46,6 +72,27 @@ file(GLOB TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.t.c)
 foreach (item IN LISTS TEST_SOURCES)
     get_filename_component(TestUnit ${item} NAME_WLE)
     message(STATUS "[${PROJECT_NAME}] TEST_SOURCES: ${TestUnit} - ${item}")
+    add_executable(${TestUnit} ${item})
+    target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
+endforeach ()
+
+##############################################################################################################
+## CRYPTO TEST
+file(GLOB CRYPTO_TEST_SOURCES ${CRYPTO_DIR}/*.t.c)
+foreach (item IN LISTS CRYPTO_TEST_SOURCES)
+    get_filename_component(TestUnit ${item} NAME_WLE)
+    message(STATUS "[${PROJECT_NAME}] CRYPTO_TEST_SOURCES: ${TestUnit} - ${item}")
+    add_executable(${TestUnit} ${item})
+    target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
+endforeach ()
+
+
+##############################################################################################################
+## NETWORK TEST
+file(GLOB NETWORK_TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Network/*.t.c)
+foreach (item IN LISTS NETWORK_TEST_SOURCES)
+    get_filename_component(TestUnit ${item} NAME_WLE)
+    message(STATUS "[${PROJECT_NAME}] NETWORK_TEST_SOURCES: ${TestUnit} - ${item}")
     add_executable(${TestUnit} ${item})
     target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
 endforeach ()
