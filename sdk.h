@@ -88,6 +88,11 @@
 #include <blowfish.h>
 #endif /*INCLUDED_BLOWFISH_H*/
 
+#ifndef INCLUDED_MODBUS_CRC16_H
+#include <modbus_crc16.h>
+#endif /*INCLUDED_MODBUS_CRC16_H*/
+
+
 
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
