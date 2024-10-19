@@ -63,7 +63,8 @@ static const char* sdk_hash_int_to_str(sdk_int_t n, char* buf, sdk_size_t buf_si
     }
     sdk_size_t size = (str + sizeof(str))-s;
     size = (size > buf_size)?buf_size:size;
-    memcpy(buf, str, size);
+    memcpy(buf, s, size);
+    buf[size]='\0';
     return buf;
 }
 /* -------------------------------------------------------------------------------------------------------------- */

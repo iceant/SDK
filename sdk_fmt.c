@@ -167,6 +167,7 @@ static int outc(int c, void *cl) {
     FILE *f = cl;
     return putc(c, f);
 }
+
 static int insert(int c, void *cl) {
     struct buf *p = cl;
     assert(p->bp < ( p->buf + p->size));

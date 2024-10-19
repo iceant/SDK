@@ -65,6 +65,8 @@ static void test_int_htable(){
     
     
     sdk_hashtable_map(&t, print_int_node, 0);
+
+//    uint32_t hash = sdk_int_hash((void*)0x12345678, 0);
     
     sdk_hashtable_destroy(&t);
 }
