@@ -43,7 +43,7 @@ static uint64_t sdk_hash_fnv_key(const char* key) {
     return hash;
 }
 
-static const char* sdk_hash_int_to_str(sdk_int_t n, char* buf, sdk_size_t buf_size){
+const char* sdk_hash_int_to_str(sdk_int_t n, char* buf, sdk_size_t buf_size){
     char str[43];
     char *s = str + sizeof(str);
     sdk_uint_t m;
@@ -130,6 +130,29 @@ void sdk_int_hash_free(void* data, void* arg){
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 
+uint32_t sdk_voidp_hash(const void* data, void* arg){
+    char str[43];
+    const char* s = sdk_hash_int_to_str((sdk_size_t)data, str, sizeof(str));
+    return sdk_string_hash(s, arg);
+}
+
+void* sdk_voidp_hash_cp(const void* data, void* arg){
+    return data;
+}
+
+sdk_bool_t sdk_voidp_hash_eq(const void* data1, const void* data2, void* arg){
+    return (data1==data2)?SDK_TRUE:SDK_FALSE;
+}
+
+void sdk_voidp_hash_free(void* data, void* arg){
+
+}
+
+
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
 
 sdk_hashtable_key_ops_t sdk_string_hash_key_ops={
         .hash = sdk_string_hash,
@@ -164,3 +187,14 @@ sdk_hashtable_val_ops_t sdk_int_hash_val_ops={
         .eq = sdk_int_hash_eq,
         .arg = 0
 };
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
+sdk_hashtable_val_ops_t sdk_voidp_hash_val_ops={
+        .cp = sdk_voidp_hash_cp,
+        .free = sdk_voidp_hash_free,
+        .eq = sdk_voidp_hash_eq,
+        .arg = 0
+};
+

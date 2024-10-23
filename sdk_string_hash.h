@@ -9,6 +9,12 @@
 #include <sdk_hashtable.h>
 #endif /*INCLUDED_SDK_HASHTABLE_H*/
 
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
+
+const char* sdk_hash_int_to_str(sdk_int_t n, char* buf, sdk_size_t buf_size);
+
+
 
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
@@ -23,6 +29,11 @@ void* sdk_int_hash_cp(const void* data, void* arg);
 sdk_bool_t sdk_int_hash_eq(const void* data1, const void* data2, void* arg);
 void sdk_int_hash_free(void* data, void* arg);
 
+
+uint32_t sdk_voidp_hash(const void* data, void* arg);
+void* sdk_voidp_hash_cp(const void* data, void* arg);
+sdk_bool_t sdk_voidp_hash_eq(const void* data1, const void* data2, void* arg);
+void sdk_voidp_hash_free(void* data, void* arg);
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 
@@ -31,5 +42,7 @@ extern sdk_hashtable_val_ops_t sdk_string_hash_val_ops;
 
 extern sdk_hashtable_key_ops_t sdk_int_hash_key_ops;
 extern sdk_hashtable_val_ops_t sdk_int_hash_val_ops;
+
+extern sdk_hashtable_val_ops_t sdk_voidp_hash_val_ops;
 
 #endif /* INCLUDED_SDK_STRING_HASH_H */
