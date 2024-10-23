@@ -12,7 +12,7 @@
 /*  */
 typedef struct gai_evaluator_s gai_evaluator_t;
 
-typedef int (*gai_evaluator_function_t)(gai_evaluator_t* self, void* ud);
+typedef bool (*gai_evaluator_function_t)(gai_evaluator_t* self, void* ud);
 
 typedef struct gai_evaluator_s{
     char* name;
