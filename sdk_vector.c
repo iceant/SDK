@@ -114,3 +114,4 @@ sdk_err_t sdk_vector_remove(sdk_vector_t* vector, sdk_size_t idx){
 
     return SDK_ERR_OK;
 }
+

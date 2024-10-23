@@ -65,6 +65,17 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(${PROJECT_NAME} PUBLIC ws2_32)
 endif ()
 
+##############################################################################################################
+## GameAI
+
+file(GLOB GAME_AI_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/GameAI/*.c)
+list(FILTER GAME_AI_SOURCES EXCLUDE REGEX \\.t\\.c)
+foreach (item IN LISTS GAME_AI_SOURCES)
+    message(STATUS "[${PROJECT_NAME}] GAME_AI_SOURCES: ${item}")
+endforeach ()
+target_sources(${PROJECT_NAME} PRIVATE ${GAME_AI_SOURCES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/GameAI)
+
 
 ##############################################################################################################
 ## TEST
@@ -97,3 +108,12 @@ foreach (item IN LISTS NETWORK_TEST_SOURCES)
     target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
 endforeach ()
 
+##############################################################################################################
+## NETWORK TEST
+file(GLOB GAME_AI_TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/GameAI/*.t.c)
+foreach (item IN LISTS GAME_AI_TEST_SOURCES)
+    get_filename_component(TestUnit ${item} NAME_WLE)
+    message(STATUS "[${PROJECT_NAME}] GAME_AI_TEST_SOURCES: ${TestUnit} - ${item}")
+    add_executable(${TestUnit} ${item})
+    target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
+endforeach ()
