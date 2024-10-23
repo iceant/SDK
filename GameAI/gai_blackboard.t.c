@@ -33,6 +33,9 @@ int main(int argc, char** argv){
         printf("[%d] %d\n", i, value);
     }
 
+    gai_blackboard_set(&b, "age", (void*)random(1, 100));
+    printf("age: %d\n", (int)gai_blackboard_get(&b,"age", 0));
+
     gai_blackboard_destroy(&b);
 
     return 0;
