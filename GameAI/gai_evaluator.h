@@ -29,5 +29,6 @@ gai_err_t gai_evaluator_init(gai_evaluator_t* self, const char* name,
 
 void gai_evaluator_destroy(gai_evaluator_t* self);
 
+bool gai_evaluator_evaluate(gai_evaluator_t* self, void* ud);
 
 #endif /* INCLUDED_GAI_EVALUATOR_H */

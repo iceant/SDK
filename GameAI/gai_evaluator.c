@@ -33,7 +33,7 @@ void gai_evaluator_destroy(gai_evaluator_t* self){
     SDK_FREE(self->name);
 }
 
-int gai_evaluator_evaluate(gai_evaluator_t* self, void* ud){
+bool gai_evaluator_evaluate(gai_evaluator_t* self, void* ud){
     assert(self);
-    self->function(self, ud);
+    return self->function(self, ud);
 }
