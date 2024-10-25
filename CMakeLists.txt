@@ -117,3 +117,8 @@ foreach (item IN LISTS GAME_AI_TEST_SOURCES)
     add_executable(${TestUnit} ${item})
     target_link_libraries(${TestUnit} PRIVATE ${PROJECT_NAME})
 endforeach ()
+
+
+##############################################################################################################
+## Lua
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Pub/Lua-5.4.7)
