@@ -5,13 +5,47 @@
 
 static int KeyArray[20] = { 24,25,13,35,23, 26,67,47,38,98, 20,19,17,49,12, 21,9,18,14,15 };
 
+static void preorder(sdk_rbtree_tree_t* tree, sdk_rbtree_node_t* node)
+{
+    if(node!= tree->nil)
+    {
+        printf("key:%d, color:%d\n", node->key, node->color);
+        preorder(tree, node->left);
+        preorder(tree, node->right);
+    }
+}
+
+static void inorder(sdk_rbtree_tree_t* tree, sdk_rbtree_node_t* node)
+{
+    if(node!= tree->nil)
+    {
+        inorder(tree, node->left);
+        printf("key:%d, color:%d\n", node->key, node->color);
+        inorder(tree, node->right);
+    }
+}
+
+static void postorder(sdk_rbtree_tree_t* tree, sdk_rbtree_node_t* node)
+{
+    if(node != tree->nil)
+    {
+        postorder(tree, node->left);
+        postorder(tree, node->right);
+        printf("key:%d, color:%d\n", node->key, node->color);
+    }
+}
+
 static void rbtree_traversal(sdk_rbtree_tree_t *T,
                              sdk_rbtree_node_t *node) {
-    if (node != T->nil) {
-        rbtree_traversal(T, node->left);
-        printf("key:%d, color:%d\n", node->key, node->color);
-        rbtree_traversal(T, node->right);
-    }
+//    if (node != T->nil) {
+//        rbtree_traversal(T, node->left);
+//        printf("key:%d, color:%d\n", node->key, node->color);
+//        rbtree_traversal(T, node->right);
+//    }
+
+//    preorder(T, node);
+//    inorder(T, node);
+    postorder(T, node);
 }
 
 int main(int argc, char** argv){
