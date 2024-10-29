@@ -109,7 +109,7 @@ foreach (item IN LISTS NETWORK_TEST_SOURCES)
 endforeach ()
 
 ##############################################################################################################
-## NETWORK TEST
+## GameAI TEST
 file(GLOB GAME_AI_TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/GameAI/*.t.c)
 foreach (item IN LISTS GAME_AI_TEST_SOURCES)
     get_filename_component(TestUnit ${item} NAME_WLE)

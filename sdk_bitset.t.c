@@ -29,7 +29,7 @@ int main(int argc, char** argv){
     
     sdk_fmt_register('B', sdk_bitset_fmt);
     
-    sdk_fmt_print("%B", set);
+    sdk_fmt_print("%B\n", set);
     
     sdk_bitset_free(&set);
     sdk_memory_destroy();

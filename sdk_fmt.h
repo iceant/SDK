@@ -48,11 +48,16 @@ void sdk_fmt_putd(const char* str, int len,
 void sdk_fmt_puts(const char* str, int len,
                   int put(int, void*), void*,
                   unsigned char flags[256], int width, int precision);
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
 
 /* NEED FREE */
 char* sdk_fmt_string(const char* fmt, ...);
 
 char* sdk_fmt_vstring(const char* fmt, va_list_box* box);
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/*  */
 
 void sdk_fmt_free(char* str);
 
