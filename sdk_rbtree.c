@@ -87,6 +87,33 @@ static void sdk_rbtree_insert_fixup(sdk_rbtree_tree_t * self, sdk_rbtree_node_t 
     }
     self->root->color = kSDK_RBTREE_COLOR_BLACK;
 }
+
+
+static sdk_rbtree_node_t * sdk_rbtree_min(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
+    while(x->left != self->nil){
+        x = x->left;
+    }
+    return x;
+}
+
+static sdk_rbtree_node_t * sdk_rbtree_max(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
+    while(x->right != self->nil){
+        x = x->right;
+    }
+    return x;
+}
+
+static sdk_rbtree_node_t * sdk_rbtree_successor(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
+    sdk_rbtree_node_t * y = x->parent;
+    if(x->right != self->nil){
+        return sdk_rbtree_min(self, x->right);
+    }
+    while((y!=self->nil) && (x==y->right)){
+        x = y;
+        y = y->parent;
+    }
+    return y;
+}
 /* -------------------------------------------------------------------------------------------------------------- */
 /*  */
 
@@ -125,33 +152,8 @@ sdk_err_t sdk_rbtree_insert(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * z)
     return SDK_ERR_OK;
 }
 
-sdk_rbtree_node_t * sdk_rbtree_min(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
-    while(x->left != self->nil){
-        x = x->left;
-    }
-    return x;
-}
 
-sdk_rbtree_node_t * sdk_rbtree_max(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
-    while(x->right != self->nil){
-       x = x->right;
-    }
-    return x;
-}
-
-sdk_rbtree_node_t * sdk_rbtree_successor(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
-    sdk_rbtree_node_t * y = x->parent;
-    if(x->right != self->nil){
-        return sdk_rbtree_min(self, x->right);
-    }
-    while((y!=self->nil) && (x==y->right)){
-        x = y;
-        y = y->parent;
-    }
-    return y;
-}
-
-void sdk_rbtree_delete_fixup(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
+static void sdk_rbtree_delete_fixup(sdk_rbtree_tree_t * self, sdk_rbtree_node_t * x){
     while((x!=self->root) && (x->color == kSDK_RBTREE_COLOR_BLACK)){
         if(x==x->parent->left){
             sdk_rbtree_node_t * w = x->parent->right;
